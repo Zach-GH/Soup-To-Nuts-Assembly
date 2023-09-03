@@ -40,15 +40,18 @@ public class outputHex {
             hexCharacter[1 * 2] = hexValues[hexValue >>> 4];
             /* Represents the lower four bits and translates the bit pattern */
             hexCharacter[1 * 2 + 1] = hexValues[hexValue & 0x0F];
-            /* Together the prior two statements give us the upper nibble of a byte */
-            /* and is what allows a smooth conversion */
+            /* Together the prior two statements give us */
+            /* the upper nibble of a byte and allows a smooth conversion */
             output.append(hexCharacter);
 
             /* Print statements used for debugging the value */
             System.out.println("output: " + output);
-            System.out.println("loop: " + loop + " The Hex Number is = " + hexNumber);
-            System.out.println("loop: " + loop + " The Quotient is = " + quotient);
-            System.out.println("loop: " + loop + " The Remainder is = " + remainder);
+            System.out.println("loop: " + loop
+                + " The Hex Number is = " + hexNumber);
+            System.out.println("loop: "
+                + loop + " The Quotient is = " + quotient);
+            System.out.println("loop: "
+                + loop + " The Remainder is = " + remainder);
             loop = loop + 1;
         }
         /* assign output to the full number */

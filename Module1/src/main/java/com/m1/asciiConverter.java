@@ -22,7 +22,8 @@ public class asciiConverter {
  
             /* This is the ASCII value of the character */
             /* present at the '0'th index of above string. */
-            System.out.println("ascii: " + inputStrings.get(i) + " hex value: " + bytes[0]);
+            System.out.println("ascii: " + inputStrings.get(i)
+                + " hex value: " + bytes[0]);
             output.append(inputStrings.get(i) + ": " + bytes[0] + " ");
 
             } catch (UnsupportedEncodingException e) {
@@ -41,18 +42,22 @@ public class asciiConverter {
             if ((int)inputChars[i] >= 65) {
                 if ((int)inputChars[i] >= 97) {
                     if ((int)inputChars[i] <= 122) {
-                        System.out.println("\nCharacter " + inputChars[i] + " was found as lowercase at the ASCII value: " + (int)inputChars[i]);
+                        System.out.println("\nCharacter " + inputChars[i]
+                            + " was found as lowercase at the ASCII value: "
+                            + (int)inputChars[i]);
                         System.out.println("Converting char to upperCase...");
-                        /* Bitwise XOR with 32 */
-                        /* The integer with 6th Least Significant Bit */
-                        /* as 1 is 32 (0010 0000) running XOR toggles this bit */
-                        /* Along with the alphabetic case of the number */
+                        /* Bitwise XOR with 32 The integer with */
+                        /* 6th Least Significant Bit */
+                        /* as 1 is 32 (0010 0000) running XOR */
+                        /* toggles this bit Along with the */
+                        /* alphabetic case of the number */
                         inputChars[i] ^= 32;
                         System.out.println("new Char is " + inputChars[i]);
                         output.append(inputChars[i]);
                     }
                 } else if ((int)inputChars[i] <= 90) {
-                    System.out.println("Character " + inputChars[i] + " is already uppercase, no change needed.");
+                    System.out.println("Character " + inputChars[i]
+                    + " is already uppercase, no change needed.");
                     inputChars[i] = inputChars[i];
                     output.append(inputChars[i]);
                 }
@@ -71,18 +76,22 @@ public class asciiConverter {
         for (int i = 0; i < inputChars.length; i++) {
             if ((int)inputChars[i] >= 65) {
                 if ((int)inputChars[i] <= 90) {
-                    System.out.println("\nCharacter " + inputChars[i] + " was found as uppercase at the ASCII value: " + (int)inputChars[i]);
+                    System.out.println("\nCharacter " + inputChars[i]
+                    + " was found as uppercase at the ASCII value: "
+                    + (int)inputChars[i]);
                     System.out.println("Converting char to lowerCase...");
-                    /* Bitwise XOR with 32 */
-                    /* The integer with 6th Least Significant Bit */
-                    /* as 1 is 32 (0010 0000) running XOR toggles this bit */
-                    /* Along with the alphabetic case of the number */
+                    /* Bitwise XOR with 32 The integer with */
+                    /* 6th Least Significant Bit */
+                    /* as 1 is 32 (0010 0000) running XOR */
+                    /* toggles this bit Along with the */
+                    /* alphabetic case of the number */
                     inputChars[i] ^= 32;
                     System.out.println("new Char is " + inputChars[i]);
                     output.append(inputChars[i]);
                 } else if ((int)inputChars[i] >= 97) {
                     if ((int)inputChars[i] <= 122) {
-                        System.out.println("Character " + inputChars[i] + " is already lowercase, no change needed.");
+                        System.out.println("Character " + inputChars[i]
+                        + " is already lowercase, no change needed.");
                         inputChars[i] = inputChars[i];
                         output.append(inputChars[i]);
                     }
