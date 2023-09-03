@@ -1,7 +1,5 @@
-// Java program to create a
-// frame using inheritance().
+/* Soup to Nuts */
 
-// inheriting JFrame
 public class main {
 
 	public static void main(String[] args) {

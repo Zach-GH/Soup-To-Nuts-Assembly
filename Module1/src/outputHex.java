@@ -1,5 +1,6 @@
 public class outputHex {
-    
+
+    /* Takes an integer input and outputs the corresponding hex value */
     public String intToHex(int input) {
         /* Used for outputting a representation on the gui */
         StringBuilder output = new StringBuilder();
@@ -48,6 +49,16 @@ public class outputHex {
             System.out.println("loop: " + loop + " The Remainder is = " + remainder);
             loop = loop + 1;
         }
+        /* assign output to the full number */
+        return(output.toString());
+    }
+
+    /* Converts inputted binary number to it's corresponding hex value */
+    public String binaryToHex(String input) {
+
+        StringBuilder output = new StringBuilder();
+        output.append(input);
+
         /* assign output to the full number */
         return(output.toString());
     }

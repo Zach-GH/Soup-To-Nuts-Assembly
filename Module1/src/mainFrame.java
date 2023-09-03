@@ -1,5 +1,3 @@
-// Java program to create a
-// frame using inheritance().
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
@@ -8,13 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-// inheriting JFrame
+/* Main gui instantiation */
 public class mainFrame extends JFrame implements ActionListener {
     static JButton toUpperBtn;
     static JButton toLowerBtn;
     static JButton binaryBtn;
     static JButton intToHexBtn;
     static JButton asciiBtn;
+    static JButton clearBtn;
     static JFrame frame;
     static JLabel upperLabel;
     static JLabel lowerLabel;
@@ -30,9 +29,11 @@ public class mainFrame extends JFrame implements ActionListener {
 		/* Buttons */
 		toUpperBtn = new JButton("toUpper");
 		toLowerBtn = new JButton("toLower");
-		binaryBtn = new JButton("Binary\nTo\nHex");
-		intToHexBtn = new JButton("Int\nTo\nHex");
-		asciiBtn = new JButton("ASCII\nValue");
+		binaryBtn = new JButton("Binary To Hex");
+		intToHexBtn = new JButton("Int To Hex");
+		asciiBtn = new JButton("ASCII Value");
+		clearBtn = new JButton("Clear Values");
+
         /* JLabels */
         upperLabel = new JLabel("0");
 		lowerLabel = new JLabel("0");
@@ -54,12 +55,13 @@ public class mainFrame extends JFrame implements ActionListener {
 		binaryBtn.setBounds(165, 170, 115, 55);
 		intToHexBtn.setBounds(165, 220, 115, 55);
 		asciiBtn.setBounds(165, 270, 115, 55);
+		clearBtn.setBounds(165, 320, 115, 55);
         /* JLabel Bounds */
-        upperLabel.setBounds(300, 70, 115, 55);
-		lowerLabel.setBounds(300, 120, 115, 55);
-		binaryLabel.setBounds(300, 170, 115, 55);
-		intToHexLabel.setBounds(300, 220, 115, 55);
-		asciiLabel.setBounds(300, 270, 115, 55);
+        upperLabel.setBounds(300, 70, 299, 55);
+		lowerLabel.setBounds(300, 120, 299, 55);
+		binaryLabel.setBounds(300, 170, 299, 55);
+		intToHexLabel.setBounds(300, 220, 299, 55);
+		asciiLabel.setBounds(300, 270, 299, 55);
 
         /* Button Actionlisteners */
         toUpperBtn.addActionListener(this);
@@ -67,6 +69,7 @@ public class mainFrame extends JFrame implements ActionListener {
         binaryBtn.addActionListener(this);
         intToHexBtn.addActionListener(this);
         asciiBtn.addActionListener(this);
+        clearBtn.addActionListener(this);
 
 		/* Set up the frame with components */
         add(textField);
@@ -75,6 +78,7 @@ public class mainFrame extends JFrame implements ActionListener {
 		add(binaryBtn);
 		add(intToHexBtn);
 		add(asciiBtn);
+		add(clearBtn);
 		add(upperLabel);
 		add(lowerLabel);
 		add(binaryLabel);
@@ -92,40 +96,56 @@ public class mainFrame extends JFrame implements ActionListener {
     /* Assign new text on each button press */
 	public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
+        /* Objects for input conversion */
+        outputHex oh = new outputHex();
+        asciiConverter ac = new asciiConverter();
         /* Temporary variables used for buffer input */
         String binaryToHexTmp;
         Integer intToHexTmp;
+        String asciiInput;
+        String asciiOutput;
         String intToHexOutput;
+        String binaryToHexOutput;
 
         if (s.equals("toUpper")) {
-           upperLabel.setText(textField.getText());
+           asciiInput = textField.getText();
+           asciiOutput = ac.toUpper(asciiInput);
+           upperLabel.setText("<html>" + asciiOutput + "</html>");
            textField.setText("");
         } else if (s.equals("toLower")) {
-           lowerLabel.setText(textField.getText());
+           asciiInput = textField.getText();
+           asciiOutput = ac.toLower(asciiInput);
+           lowerLabel.setText("<html>" + asciiOutput + "</html>");
            textField.setText("");
-        } else if (s.equals("Binary\nTo\nHex")) {
+        } else if (s.equals("Binary To Hex")) {
             /* Assure that whatever value entered is a string */
             binaryToHexTmp = textField.getText().toString();
-            binaryLabel.setText(binaryToHexTmp);
-            textField.setText("");
-        } else if (s.equals("Int\nTo\nHex")) {
+            binaryToHexOutput = oh.binaryToHex(binaryToHexTmp);
+            binaryLabel.setText("<html>" + binaryToHexOutput + "</html>");
+        } else if (s.equals("Int To Hex")) {
             intToHexTmp = 0;
-            outputHex oh = new outputHex();
             try {
                 /* Assure that whatever value entered is an Integer */
                 intToHexTmp = Integer.parseInt(textField.getText());
-                /* Convert from */
+                /* Convert from Int to Hex */
                 intToHexOutput = oh.intToHex(intToHexTmp);
-                /* Convert back into string after hex conversion */
-                // intToHexOutput = intToHexTmp.toString();
-                intToHexLabel.setText(intToHexOutput);
+                intToHexLabel.setText("<html>" + intToHexOutput + "</html>");
             } catch (NumberFormatException ne) {
                 intToHexOutput = textField.getText();
                 System.out.println(intToHexOutput + " is not a valid integer"); 
             } 
             textField.setText("");
-        } else if (s.equals("ASCII\nValue")) {
-            asciiLabel.setText(textField.getText());
+        } else if (s.equals("ASCII Value")) {
+            asciiInput = textField.getText();
+            asciiOutput = ac.asciiToValue(asciiInput);
+            asciiLabel.setText("<html>" + asciiOutput + "</html>");
+            textField.setText("");
+        } else if (s.equals("Clear Values")) {
+            upperLabel.setText("0");
+            lowerLabel.setText("0");
+            binaryLabel.setText("0");
+            intToHexLabel.setText("0");
+            asciiLabel.setText("0");
             textField.setText("");
         }
     }
