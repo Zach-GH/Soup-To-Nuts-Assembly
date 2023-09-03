@@ -14,6 +14,8 @@ For example, asciiConverter is used for toUpper, toLower, and converting an ASCI
 
 Everything is run from the main.java file, which calls the mainFrame class, which is only used for the creation and instantiation of each button that ties together with each corresponding function.
 
+I have added a Makefile for ease of use, with the corresponding commands `make clean` which removes *.class files for consistent updating and compilation, and `make run` to compile each file and run the application.
+
 Due to my lack of ability to foresee that this may have taken me awhile, in addition to everything else I have going on in my life, this project was created in the course of one day, and late into the night prior.
 
 # Assignment
