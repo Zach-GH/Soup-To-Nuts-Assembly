@@ -1,4 +1,4 @@
-/* Soup to Nuts */
+package main.java.com.m1;
 
 public class main {
 

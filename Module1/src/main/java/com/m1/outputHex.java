@@ -1,3 +1,5 @@
+package main.java.com.m1;
+
 public class outputHex {
 
     /* Takes an integer input and outputs the corresponding hex value */
