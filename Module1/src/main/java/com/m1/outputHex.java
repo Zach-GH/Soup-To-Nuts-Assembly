@@ -62,11 +62,72 @@ public class outputHex {
 
     /* Converts inputted binary number to it's corresponding hex value */
     public String binaryToHex(String input) {
+        /* Used for outputting a representation on the gui */
+        String output = "";
+        /* Array of hex values for conversion */
+        char binaryHexChars[] = { 'A', 'B', 'C', 'D', 'E', 'F' };
+        int remainder;
+        int inputInteger = 0;
+        Boolean inputSafe = false;
+        String intChecker = input;
+        int binaryToDecimal = 0;
+        int i = 0;
 
-        StringBuilder output = new StringBuilder();
-        output.append(input);
-
-        /* assign output to the full number */
-        return(output.toString());
+        /* We have to intake a string so we can check binary validity */
+        /* Per each character in the string */
+        /* Just to be safe we also check that the input */
+        /* Is a valid integer as we are converting our string input */
+        /* To compute the values from Binary to Hex */
+        try {
+            for (i = 0; i < intChecker.length(); i++) {
+                if ((intChecker.charAt(i) != '0')
+                    && (intChecker.charAt(i) != '1')) {
+                    System.out.println("character "
+                        + intChecker.charAt(i) + " is not of binary value!");
+                    inputSafe = false;
+                } else {
+                    inputInteger = Integer.parseInt(input);
+                    inputSafe = true;
+                }
+            }
+        } catch (NumberFormatException ne) {
+            inputSafe = false;
+            System.out.println(intChecker + " is not a valid integer"); 
+        } 
+        if (inputSafe) {
+            /* Convert from binary to decimal */
+            while (inputInteger > 0) {
+                /* Extract each digit of the binary number */
+                /* By getting the remainder of division by 10 */
+                /* And multiply it by increasing integral powers by 2 */
+                binaryToDecimal += Math.pow(2, i++) * (inputInteger % 10);
+                System.out.println("binaryToDecimal " + binaryToDecimal);
+                /* Update condition by dividing the binary by 10 */
+                inputInteger /= 10;
+            }
+    
+            /* Continue dividing until 0 */
+            while (binaryToDecimal != 0) {
+                /* Calculate the remainder dividing by 16 */
+                remainder = binaryToDecimal % 16;
+                System.out.println("\nremainder " + remainder);
+                /* Check to assure we output correct hex values */
+                if (remainder >= 10) {
+                    output = binaryHexChars[remainder - 10] + output;
+                    System.out.println("output " + output);
+                } else if (remainder != 0) {
+                    output = remainder + output;
+                    System.out.println("output " + output);
+                } else {
+                    System.out.println("output was 0, negate adding");
+                }
+                /* Continue iterating through the loop */
+                binaryToDecimal /= 16;
+            }
+            /* assign output of hex converted from binary */
+            return(output);
+        } else {
+            return ("0");
+        }
     }
 }
