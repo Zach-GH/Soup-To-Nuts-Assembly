@@ -21,13 +21,15 @@ public class outputHex {
         hexValue = remainder & 0xFF;
         hexCharacter[1 * 2] = hexValues[hexValue >>> 4];
         hexCharacter[1 * 2 + 1] = hexValues[hexValue & 0x0F];
-        output.append(hexCharacter);
 
         /* Print statements used for debugging the value */
-        System.out.println("output: " + output);
         System.out.println("The hex number is = " + hexNumber);
         System.out.println("The Quotient is = " + quotient);
         System.out.println("The Remainder is = " + remainder);
+
+        output.append(hexCharacter[1 * 2 + 1]);
+        System.out.println("output: " + output);
+
         /* Continue dividing until the quotient is 0 */
         /* This is the when the binary number is complete */
         while (quotient != 0) {
@@ -40,22 +42,22 @@ public class outputHex {
             hexCharacter[1 * 2] = hexValues[hexValue >>> 4];
             /* Represents the lower four bits and translates the bit pattern */
             hexCharacter[1 * 2 + 1] = hexValues[hexValue & 0x0F];
-            /* Together the prior two statements give us */
-            /* the upper nibble of a byte and allows a smooth conversion */
-            output.append(hexCharacter);
 
+            loop = loop + 1;
             /* Print statements used for debugging the value */
-            System.out.println("output: " + output);
             System.out.println("loop: " + loop
                 + " The Hex Number is = " + hexNumber);
             System.out.println("loop: "
                 + loop + " The Quotient is = " + quotient);
             System.out.println("loop: "
                 + loop + " The Remainder is = " + remainder);
-            loop = loop + 1;
+
+            output.append(hexCharacter[1 * 2 + 1]);
+            System.out.println("output: " + output);
         }
         /* assign output to the full number */
-        return(output.toString());
+        /* reverse the final number so it is readable */
+        return((output.reverse()).toString());
     }
 
     /* Converts inputted binary number to it's corresponding hex value */
