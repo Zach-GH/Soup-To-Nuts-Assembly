@@ -43,7 +43,11 @@ public class asciiConverter {
                     if ((int)inputChars[i] <= 122) {
                         System.out.println("\nCharacter " + inputChars[i] + " was found as lowercase at the ASCII value: " + (int)inputChars[i]);
                         System.out.println("Converting char to upperCase...");
-                        inputChars[i] -= 32; /* cannot use addition or subtraction must use bitwise operators & or | */
+                        /* Bitwise XOR with 32 */
+                        /* The integer with 6th Least Significant Bit */
+                        /* as 1 is 32 (0010 0000) running XOR toggles this bit */
+                        /* Along with the alphabetic case of the number */
+                        inputChars[i] ^= 32;
                         System.out.println("new Char is " + inputChars[i]);
                         output.append(inputChars[i]);
                     }
@@ -69,7 +73,11 @@ public class asciiConverter {
                 if ((int)inputChars[i] <= 90) {
                     System.out.println("\nCharacter " + inputChars[i] + " was found as uppercase at the ASCII value: " + (int)inputChars[i]);
                     System.out.println("Converting char to lowerCase...");
-                    inputChars[i] += 32; /* cannot use addition or subtraction must use bitwise operators & or | */
+                    /* Bitwise XOR with 32 */
+                    /* The integer with 6th Least Significant Bit */
+                    /* as 1 is 32 (0010 0000) running XOR toggles this bit */
+                    /* Along with the alphabetic case of the number */
+                    inputChars[i] ^= 32;
                     System.out.println("new Char is " + inputChars[i]);
                     output.append(inputChars[i]);
                 } else if ((int)inputChars[i] >= 97) {
