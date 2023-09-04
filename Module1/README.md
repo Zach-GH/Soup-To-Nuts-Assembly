@@ -17,7 +17,7 @@ Everything is run from the main.java file, which calls the mainFrame class, whic
 I have added a Makefile for ease of use, with the corresponding commands `make clean` which removes *.class and jar files for consistent updating and compilation, and `make run` to compile a jar file and run the application.
 
 Lastly, there is also a command in the case that your jar file does not work for whatever reason which is
-`make run_locally` and all this does is compile and run the application without the compression into the jar file.
+`make run_local` and all this does is compile and run the application without the compression into the jar file.
 
 Due to my lack of ability to foresee that this may have taken me awhile, in addition to everything else I have going on in my life, this project was created in the course of one day, and late into the night prior.
 
