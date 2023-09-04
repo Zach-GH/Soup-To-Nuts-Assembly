@@ -26,7 +26,7 @@ public class mainFrame extends JFrame implements ActionListener {
 
 	mainFrame() {
         /* Soup To Nuts */
-		setTitle("Soup To Nuts Assembly Module 1");
+		setTitle("Soup To Nuts Assembly Module 1 Zachary Meisner");
 
 		/* Buttons */
 		toUpperBtn = new JButton("toUpper");
