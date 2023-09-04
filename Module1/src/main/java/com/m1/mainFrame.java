@@ -44,12 +44,12 @@ public class mainFrame extends JFrame implements ActionListener {
 		asciiLabel = new JLabel("0");
 
         /* Create text field for user input */
-        textField = new JTextField(30);
+        textField = new JTextField(16);
 
         /* Create and set the font for the text field */
         Font font = new Font("Comic Sans", Font.BOLD, 20);
         textField.setFont(font);
-		textField.setBounds(100, 20, 400, 55);
+		textField.setBounds(165, 20, 115, 55);
 
         /* JButton Bounds */
 		toUpperBtn.setBounds(165, 70, 115, 55);
