@@ -59,7 +59,13 @@ We can continue now to run our program using the following command:
 
 This may have something to do with my initial grabbing of the code, but more investigation is needed on the matter to determine the exact case in which this is happening. This is paired to the following commit: [de2e83d](https://github.com/Zach-GH/Soup-To-Nuts-Assembly/commit/de2e83d04136bd26d70b3612319c0e10ef5511bc)
 
+After looking up some documentation on the code, in addition to playing around with some of the brackets, in addition to recoding the application in VIM I got the idea that it maybe the environment I am using (as I downloaded my own VM of the latest Raspberry Pi OS for x32 which I believe is presently Debian 11) so I ssh'd into my school provided Raspberry Pi Account, and ran the same commands, only to find that I ran into no issues and my commands for the program successfully worked. This can be seen below:
 
+<img width="727" alt="Screenshot 2023-09-17 at 1 44 35 PM" src="https://github.com/Zach-GH/Soup-To-Nuts-Assembly/assets/80639692/c33ab3e6-8f36-4efd-bac8-9252167be3f6">
+
+Interestingly enough, I found documentation to suggest that I am using a newer version of the compiler itself, as I cannot imagine why it would be the OS.
+
+I then ran `cat /etc/os-release` to evaluate any potential differences, and found that the student server I have uses `Raspbian GNU/Linux 10 (buster)` and like I had previously mentioned, the VM I am using utilizes `Debian GNU/Linux 11 (bullseye)` I am unsure what underlying differences between the two there maybe, but it is at least a start of understanding the differences of both OS environments, and how Assembly is configured and works dependent on the OS.
 
 
 # Assignment
