@@ -51,6 +51,43 @@ We can continue now to run our program using the following command:
 
 `./hello`
 
+# Using VIM
+
+https://www.freecodecamp.org/news/vim-beginners-guide/
+
+Popular VIM commands
+---
+
+- `:edit sample.txt` Create/Edit file
+- `:wq` Save and Quit
+- `:q!` Quit without save
+- `y` Copy selected text
+- `d` Cut selected text
+- `p` Paste copied text
+- `:[range]s/{pattern}/{string}/[flags]` Find and Replace
+- `u` Undo
+- `CTRL + R` Redo
+
+How to Install VIM
+---
+
+`sudo apt-get update`
+`sudo apt-get install vim`
+`which vim` you should see /usr/bin/vim print out if installed properly
+
+Getting started with VIM
+---
+
+1. Just running the command `vim` will open VIM in the command line.
+2. To create a file, use the following command `:edit sample.txt` which will open a sample text file in edit mode if it exists, and creates a new file otherwise.
+3. After the creation of the file, you will want to enter `i` to enter insert mode, where you are then able to enter any text you would like in the file.
+4. When finished, press the `ESC` key, and enter `:w` to save/write to your file.
+5. Enter `:q` for quit, to exit out of VIM and continue entering any corresponding commands neccesary.
+6. Additionally, to save time you can use `:wq` for write/quit
+7. Lastly, to save time opening your file, you can target the needed file directly in the case that it already exists, for example, if you were to create your file using `touch sample.txt` you then would be able to run `vim sample.txt` to directly open the file without needing to create it inside of VIM.
+
+
+  
 # Errors
 1. The first error I ran into was simply because I was using a capital instead of a lowercase, this is likely a mistake in the book, however changing the commands from `gcc Hello.s -g -c -o Hello.o` to `gcc hello.s -g -c -o hello.o`fixed the problem
 2. The second error I ran into is the following:
