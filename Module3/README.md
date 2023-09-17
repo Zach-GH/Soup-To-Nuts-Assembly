@@ -3,7 +3,7 @@ Zachary Meisner 9/17/23
 
 https://github.com/Zach-GH/Soup-To-Nuts-Assembly
 
-Sections 3.1.1 – 3.1.3
+[Sections 3.1.1 – 3.1.3](https://cupola.gettysburg.edu/cgi/viewcontent.cgi?article=1007&context=oer)
 
 # Popular Linux Commands
 - `ls`, `ls -a` (-a (all) is for listing hidden files)
@@ -18,10 +18,10 @@ Sections 3.1.1 – 3.1.3
 - `df` and `du`
 
 # Purpose
-
+The purpose of this Module 3 folder is to familiarize myself with the OS provided to be by the school, debug and attempt to run the initial VM environment that I have set up and improve it, and to get my feet wet with the actual programming of Assembly language, as well as creating a corresponding Makefile.
 
 # Navigating the application
-To run hello.s enter the following command into your shell prompt.
+To run `hello.s` enter the following command into your shell prompt.
 
 `gcc Hello.s -g -c -o Hello.o`
 
@@ -37,7 +37,7 @@ with the name specified after the option. In this instance, it's `hello.o`
 
 Ultimately, the outcome of the above command is a file named `hello.o`
 which is an object file containing the result of translated assembly code
-in the file hello.s into machine code.
+in the file `hello.s` into machine code.
 
 From here on out, we have to use something called an object linker
 this is so we may resolve any external references in our program
@@ -52,8 +52,7 @@ We can continue now to run our program using the following command:
 `./hello`
 
 # Using VIM
-
-https://www.freecodecamp.org/news/vim-beginners-guide/
+[Free Code Camp VIM Tutorial](https://www.freecodecamp.org/news/vim-beginners-guide/)
 
 Popular VIM commands
 ---
@@ -73,7 +72,7 @@ How to Install VIM
 
 `sudo apt-get update`
 `sudo apt-get install vim`
-`which vim` you should see /usr/bin/vim print out if installed properly
+`which vim` you should see `/usr/bin/vim` print out if installed properly
 
 Getting started with VIM
 ---
@@ -86,8 +85,6 @@ Getting started with VIM
 6. Additionally, to save time you can use `:wq` for write/quit
 7. Lastly, to save time opening your file, you can target the needed file directly in the case that it already exists, for example, if you were to create your file using `touch sample.txt` you then would be able to run `vim sample.txt` to directly open the file without needing to create it inside of VIM.
 
-
-  
 # Errors
 1. The first error I ran into was simply because I was using a capital instead of a lowercase, this is likely a mistake in the book, however changing the commands from `gcc Hello.s -g -c -o Hello.o` to `gcc hello.s -g -c -o hello.o`fixed the problem
 2. The second error I ran into is the following:
@@ -103,6 +100,3 @@ After looking up some documentation on the code, in addition to playing around w
 Interestingly enough, I found documentation to suggest that I am using a newer version of the compiler itself, as I cannot imagine why it would be the OS.
 
 I then ran `cat /etc/os-release` to evaluate any potential differences, and found that the student server I have uses `Raspbian GNU/Linux 10 (buster)` and like I had previously mentioned, the VM I am using utilizes `Debian GNU/Linux 11 (bullseye)` I am unsure what underlying differences between the two there maybe, but it is at least a start of understanding the differences of both OS environments, and how Assembly is configured and works dependent on the OS.
-
-
-# Assignment
