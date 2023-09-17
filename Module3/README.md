@@ -50,4 +50,16 @@ the expected output is the writing of an executable file that can be run.
 We can continue now to run our program using the following command:
 
 `./hello`
+
+# Errors
+1. The first error I ran into was simply because I was using a capital instead of a lowercase, this is likely a mistake in the book, however changing the commands from `gcc Hello.s -g -c -o Hello.o` to `gcc hello.s -g -c -o hello.o`fixed the problem
+2. The second error I ran into is the following:
+
+<img width="449" alt="Screenshot 2023-09-17 at 12 52 37 PM" src="https://github.com/Zach-GH/Soup-To-Nuts-Assembly/assets/80639692/767af8ee-b14c-428c-95ea-24fe89277820">
+
+This may have something to do with my initial grabbing of the code, but more investigation is needed on the matter to determine the exact case in which this is happening. This is paired to the following commit: [de2e83d](https://github.com/Zach-GH/Soup-To-Nuts-Assembly/commit/de2e83d04136bd26d70b3612319c0e10ef5511bc)
+
+
+
+
 # Assignment
