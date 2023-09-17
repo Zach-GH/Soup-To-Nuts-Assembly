@@ -51,6 +51,18 @@ We can continue now to run our program using the following command:
 
 `./hello`
 
+Running with a Makefile
+---
+
+I have also created a corresponding Makefile to allow us to run the initial application, the commands can be found below:
+
+<img width="928" alt="Screenshot 2023-09-17 at 2 17 51 PM" src="https://github.com/Zach-GH/Soup-To-Nuts-Assembly/assets/80639692/842e7e3f-e4f8-43d2-a8d2-3167a0700654">
+
+You can see in my VIM display, that we have two commands for this file which can be run using the following commands: `make clean` that will remove any object or executable files within the corresponding folder and `make hello` which let you compile the hello file, so all you have to do after these two commands is enter `./hello` A demonstration can be seen below.
+
+<img width="488" alt="Screenshot 2023-09-17 at 2 18 34 PM" src="https://github.com/Zach-GH/Soup-To-Nuts-Assembly/assets/80639692/04602523-8c9a-44d9-800e-d7ae046c0fe8">
+
+
 # Using VIM
 [Free Code Camp VIM Tutorial](https://www.freecodecamp.org/news/vim-beginners-guide/)
 
