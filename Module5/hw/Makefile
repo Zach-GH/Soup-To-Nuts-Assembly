@@ -1,25 +1,39 @@
-all: ftInConvHw
+all_ft2I: ft2Inches
 
-all_cel: CelToFah
+all_I2ft: inches2Ft
 
-all_fah: FahToCel
+all_cel: celToFah
+
+all_fah: fahToCel
+
+all_ten:
+	gcc tenTimes.s -g -o tenTimes; ./tenTimes
+
+all_twos:
+	gcc twosComp.s -g -o twosComp; ./twosComp
+
 
 MYLIBS = libConversions.o libTypes.o
 CC = gcc
 
-ftInConvHw: ftInConvHwMain.o
+ft2Inches: ft2InchesMain.o
 	$(CC) $@Main.o -g -o $@
 	./$@
 
-CelToFah: CelToFahMain.o $(MYLIBS)
+inches2Ft: inches2FtMain.o $(MYLIBS)
 	$(CC) $@Main.o $(MYLIBS) -g -o $@
 	./$@
 
-FahToCel: FahToCelMain.o $(MYLIBS)
+celToFah: celToFahMain.o $(MYLIBS)
 	$(CC) $@Main.o $(MYLIBS) -g -o $@
 	./$@
+
+fahToCel: fahToCelMain.o $(MYLIBS)
+	$(CC) $@Main.o $(MYLIBS) -g -o $@
+	./$@
+
 .s.o:
 	$(CC) $(@:.o=.s) -g -c -o $@
 
 clean:
-	rm *.o a.out CelToFah FahToCel
+	rm *.o a.out
