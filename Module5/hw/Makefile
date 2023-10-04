@@ -1,4 +1,4 @@
-all: inches2Ft
+all: ftInConvHw
 
 all_cel: CelToFah
 
@@ -7,8 +7,8 @@ all_fah: FahToCel
 MYLIBS = libConversions.o libTypes.o
 CC = gcc
 
-inches2Ft: inches2FtMain.o $(MYLIBS)
-	$(CC) $@Main.o $(MYLIBS) -Wall -g -o $@
+ftInConvHw: ftInConvHwMain.o
+	$(CC) $@Main.o -g -o $@
 	./$@
 
 CelToFah: CelToFahMain.o $(MYLIBS)
