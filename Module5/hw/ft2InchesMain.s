@@ -17,21 +17,21 @@ main:
 
     LDR r1, =num
     LDR r1, [r1, #0]
-    MOV r5, #12
-    MUL r7, r1, r5
+    MOV r0, r1
+    BL feet2In
+    MOV r4, r0
 
-    BL secondInput
+    BL secondInput // go get the second input
+    ADD r4, r0, r4 // add inches and feet together
 
     # Printing The Message
-    LDR r1, =num
-    LDR r1, [r1, #0]
-
-    MOV r0, r1
-    MOV r1, #12
-    bl __aeabi_idiv
-
-    ADD r1, r0, r7
     LDR r0, =output
+    BL printf
+
+    MOV r1, #10
+    MUL r0, r4, r1 // for scaling purposes
+    BL printScaledInt
+    LDR r0, =newline
     BL printf
 
     # Return to the OS
@@ -40,11 +40,11 @@ main:
     MOV pc, lr
 
 .data
-    prompt: .asciz "Enter total length of feet: "
-    output: .asciz "\nThe length in inches is %d\n"
-    input:  .asciz "%d"
+    prompt:  .asciz "Enter total length of feet: "
+    output:  .asciz "\nThe length in inches is "
+    input:   .asciz "%d"
     newline: .asciz "\n"
-    num: .word 0
+    num:     .word 0
 
 .text
 # function secondInput

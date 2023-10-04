@@ -16,8 +16,8 @@ all_twos:
 MYLIBS = libConversions.o libTypes.o
 CC = gcc
 
-ft2Inches: ft2InchesMain.o
-	$(CC) $@Main.o -g -o $@
+ft2Inches: ft2InchesMain.o $(MYLIBS)
+	$(CC) $@Main.o $(MYLIBS) -g -o $@
 	./$@
 
 inches2Ft: inches2FtMain.o $(MYLIBS)
