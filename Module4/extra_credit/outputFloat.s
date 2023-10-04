@@ -1,49 +1,31 @@
 .text
 .global main
-.func main
 main:
-    SUB sp, sp, #4
-    STR lr, [sp, #0]
-    
-    # Prompt for an input number
-    LDR R0, =prompt
+    SUB sp, sp, #8 //#4
+    STR lr, [sp, #4] //]
+
+    # Prompt for input
+    LDR r0, =prompt
     BL printf
 
     # Scanf
-    LDR R0, =input
-    LDR R1, =num
+    LDR r0, =input
+    LDR r1, =num
     BL scanf
 
-    # Print message
-    //LDR R0, =format
-    //LDR R1, =num
-    //LDR R1, [R1, #0]
-
-    LDR R1, addr_num
-    VLDR S14, [R1] // load r1 as float in s15
-
-    VCVT.F64.F32 D5, S14 // convert s0 to double in d1
-
-    LDR R0, =format
-
-    VMOV R2, R3, D5
-
+    # Printing the message
+    MOV r0, r1
+    LDR r0, =format
+    VCVT.F64.F32 d0, s0
+    VMOV r2, r3, d0
     BL printf
 
-    LDR lr, [sp, #0]
-    ADD sp, sp, #4
+    LDR lr, [sp, #4]
+    ADD sp, sp, #8
     MOV pc, lr
 
-end:
-    MOV R7, #1
-    SWI 0
-
-addr_num: .word num
-addr_input: .word input
 .data
     num: .float 0.0
-    prompt: .asciz "Enter A Number\n"
+    prompt: .asciz "Enter a number\n"
     input: .asciz "%f"
     format: .asciz "Your number is %f\n"
-
-.global printf
