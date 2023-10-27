@@ -1,3 +1,13 @@
+#
+# Program Name: libTypes.s
+# Author: Zachary Meisner
+# Date: 10/27/2023
+# Purpose: To introduce scaled integer printing for floating point answer output.
+# Functions: printScaledInt
+# Inputs: All input comes from the main file as linked register functions cannot intake input
+# Ouputs: A Floating point number
+#
+
 .global printScaledInt
 .text
 
@@ -35,7 +45,9 @@ printScaledInt:
     MOV pc, lr
 
 .data
+    # Prints the whole part of the floating point number
     __PSI_format: .asciz "%d"
+    # Prints the dot in the decimal part of the number
     __PSI_dot: .asciz "."
 #END printScaledInt
 

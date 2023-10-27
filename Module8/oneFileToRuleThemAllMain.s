@@ -1,3 +1,14 @@
+#
+# Program Name: oneFileToRuleThemAllMain.s
+# Author: Zachary Meisner
+# Date: 10/27/2023
+# Purpose: Module 8 Homework to demonstrate
+# all needed functionality for conversion ratios.
+# Functions: main, caseStatement, userInput, secondInput, milesInput
+# Inputs: user input for each function, second user input for hours, third for miles.
+# Outputs: Converted floating number pertaining to each required equation.
+#
+
 .text
 .global main
 
@@ -53,6 +64,7 @@ main:
         MOV pc, lr
 
 .data
+    # Prompt the user for initial user input/option
     prompt:  .asciz "Enter option\n
                      3 : kph\n
                      2 : miles2kilometers\n
@@ -60,8 +72,11 @@ main:
                      0 : Inches2Ft\n
                     -1 : To Quit\n"
 
+    # Stores user input
     input:   .asciz "%d"
+    # For printing values, must have this to use printScaledInt
     newline: .asciz "\n"
+    # Storage for the user input
     num:     .word 0
 
 .text
@@ -172,6 +187,7 @@ caseStatement:
    ADD sp, sp, #4
    MOV pc, lr
 .data
+    # case statements for each user input
     case0: .asciz "\nTotal Feet: \n"
     case1: .asciz "\nTotal Fahrenheit: \n"
     case2: .asciz "\nTotal Kilometers: \n"
@@ -204,8 +220,11 @@ userInput:
     ADD sp, sp, #8
     MOV pc, lr
 .data
+    # store user Input
     inputNum: .word 0
+    # prompt user for input
     prompt1: .asciz "Enter input: "
+    # intake user input
     inputFormat: .asciz "%d"
 
 .text
@@ -231,8 +250,11 @@ secondInput:
     ADD sp, sp, #12
     MOV pc, lr
 .data
+    # store user input
     inputNum2: .word 0
+    # prompt for user hours
     prompt2: .asciz "Enter total hours: "
+    # intake user input
     inputFormat2: .asciz "%d"
 
 .text
@@ -258,6 +280,9 @@ milesInput:
     ADD sp, sp, #16
     MOV pc, lr
 .data
+    # store user input
     inputNum3: .word 0
+    # prompt user for miles
     promptMiles: .asciz "Enter total miles: "
+    # intake user input
     inputFormat3: .asciz "%d"
