@@ -1,150 +1,119 @@
 #
-# Program Name: randomGameMain.s
+# Program Name: randomGame.s
 # Author: Zachary Meisner
-# Date: 11/5/2023
-# Purpose: Module 10 Homework
+# Date: 10/27/2023
+# Purpose: Module 10 Guessing Game
 # Functions:
-# Inputs:
+# Inputs: user input for each function
 # Outputs:
 #
 
-.text
 .global main
-
+.text
 main:
     # Save return to os on stack
     SUB sp, sp, #4
     STR lr, [sp, #0]
 
-    startLoop:
-        LDR r0, =prompt
-        BL printf
+    # initialize by prompting user, answer goes into r4
+    LDR r0, =prompt
+    BL printf
 
-        LDR r0, =input
-        LDR r1, =num
-        BL scanf
+    # Read input
+    LDR r0, =input
+    LDR r1, =num
+    BL scanf
 
-        LDR r1, =num
-        LDR r1, [r1]
+    LDR r1, =num
+    LDR r4, [r1, #0]
 
-        CMP r1, #-1
-        BEQ endLoop
+    StartSentinelLoop:
+        MOV r0, #-1
+        CMP r4, r0
+        BEQ EndSentinelLoop
 
-            BL caseStatement
+            # Loop Block
+            MOV r0, #0 // clear the user inputi
+            #BL caseStatement // take the user input and verify which command to use
+            BL userInput
 
-            B startLoop
+            MOV r4, r0
+            MOV r6, r0 // move the max value into r6 for outputting the invalidCase
 
-    endLoop:
-        LDR r0, =ByeBye
-        BL printf
+            BL secondInput
+
+            MOV r1, r4 // move max value into r1
+
+            BL checkNegative
+            MOV r1, r0 // move output of checkNegative into r1 for loader output
+            MOV r4, r0
+
+            CMP r1, #0
+            BLE invalidCase // if the output is not 0 or negative, let the computer guess
+
+            MOV r1, r4
+            LDR r0, =output
+            BL printf
+
+            B EndIf
+
+            invalidCase:
+            MOV r1, #0 // Clear the r1 register
+            MOV r1, r6 // Moving the max value into r1 for invalid output
+            LDR r0, =invalid
+            BL printf
+
+            B EndIf
+
+            EndIf:
+
+            # Get next value
+            LDR r0, =prompt
+            BL printf
+            LDR r0, =input
+            LDR r1, =num
+            BL scanf
+            LDR r1, =num
+            LDR r4, [r1, #0]
+
+            B StartSentinelLoop
+
+    EndSentinelLoop:
 
         # Return to the OS
         LDR lr, [sp, #0]
         ADD sp, sp, #4
         MOV pc, lr
 
+.data
+    # Prompt the user for initial user input/option
+    prompt:  .asciz "\nEnter any number to continue, -1 to quit: "
+    # Stores user input
+    input:   .asciz "%d"
+    # Storage for the user input
+    num:     .word 0
+    # output
+    output:  .asciz "\nYour output is %d\n"
+    # invalid
+    invalid: .asciz "\nInvalid user input, please enter a number above 0 and below the max value %d\n"
+
+
 .text
-caseStatement:
-   SUB sp, sp, #4
-   STR lr, [sp, #0]
-
-   # Start of IF block
-   MOV r4, r1 // move user input into r4
-
-   CMP r4, #1
-   BEQ inputIs1
-
-   CMP r4, #0
-   BEQ inputIs0
-
-   LDR r0, =Invalid
-   BL printf
-   B EndIf
-
-   # if input is 1
-   inputIs1:
-   MOV r0, #2
-   BL guessTheNumber
-   MOV r4, r0 // store the maximum value chosen in r4
-   MOV r0, #1
-   BL guessTheNumber
-
-   # Print out user entered number
-   MOV r1, r0
-   LDR r0, =case1
-   BL printf
-
-   # Print out max value
-   MOV r1, r4
-   LDR r0, =maxVal
-   BL printf
-
-   B EndIf
-
-   inputIs0:
-   MOV r0, #2
-   BL guessTheNumber
-   MOV r4, r0 // store the maximum value chosen in r4
-   MOV r0, #0
-   # Allow the user to input a number for the computer
-   BL guessTheNumber
-
-   # Print out user entered number
-   MOV r1, r0
-   LDR r0, =case0
-   BL printf
-
-   # Print out max value
-   MOV r1, r4
-   LDR r0, =maxVal
-   BL printf
-
-   B EndIf
-
-   EndIf:
-
-   # Return to the OS
-   LDR lr, [sp, #0]
-   ADD sp, sp, #4
-   MOV pc, lr
-
-# Function to retrieve input from the user for the computer to guess
-# Allows the user to input a number for the computer to guess
-#
-guessTheNumber:
+# function userInput
+userInput:
     SUB sp, sp, #8
     STR lr, [sp, #0]
     STR r4, [sp, #4]
 
-    CMP r0, #2
-    BEQ response2
+    MOV  r4, r0
+    MOV r2, #3
 
-    CMP r0, #1
-    BEQ response1
-
-    CMP r0, #0
-    BEQ response0
-
-    response2:
-    LDR r0, =prompt2
-    B EndIf2
-
-    response1:
     LDR r0, =prompt1
-    B EndIf2
-
-    response0:
-    LDR r0, =prompt0
-    B EndIf2
-
-    EndIf2:
-
     BL printf
 
     LDR r0, =inputFormat
     LDR r1, =inputNum
     BL scanf
-
     LDR r1, =inputNum
     LDR r0, [r1, #0]
 
@@ -152,19 +121,41 @@ guessTheNumber:
     LDR lr, [sp, #0]
     ADD sp, sp, #8
     MOV pc, lr
-
 .data
-    # case statements for each user input
-    prompt:  .asciz "\nEnter option\n 1 : Guess The Number\n 0 : Challenge The Computer\n-1 : To Quit\n"
-    input:   .asciz "%d"
-    num:     .word 0
-    ByeBye:  .asciz "\nBye Bye!\n"
-    case0:   .asciz "\nYour number is %d!\n"
-    case1:   .asciz "\nYour number is %d!\n"
-    maxVal:  .asciz "\nYour chosen max value is %d!\n"
-    Invalid: .asciz "input must be -1 to 1\n"
+    # store user Input
     inputNum: .word 0
-    prompt2: .asciz "What is the maximum value to guess? "
-    prompt1: .asciz "Enter a number for the computer to guess! "
-    prompt0: .asciz "Enter your number guess to beat the computer! "
+    # prompt user for input
+    prompt1: .asciz "\nEnter Max Value that the computer can guess against: "
+    # intake user input
     inputFormat: .asciz "%d"
+
+.text
+# function secondInput
+secondInput:
+    SUB sp, sp, #12
+    STR lr, [sp, #4]
+    STR r4, [sp, #8]
+
+    MOV r4, r0
+
+    LDR r0, =prompt2
+    BL printf
+
+    LDR r0, =inputFormat2
+    LDR r1, =inputNum2
+    BL scanf
+    LDR r1, =inputNum2
+    LDR r0, [r1, #0]
+
+    LDR r4, [sp, #8]
+    LDR lr, [sp, #4]
+    ADD sp, sp, #12
+    MOV pc, lr
+.data
+    # store user input
+    inputNum2: .word 0
+    # prompt for computer guess input
+    prompt2: .asciz "\nEnter your input for the computer to guess: "
+    # intake user input
+    inputFormat2: .asciz "%d"
+

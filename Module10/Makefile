@@ -1,9 +1,11 @@
-random: randomGame
+game: randomGame
+
+MYLIBS = libFunctions.o
 
 CC = gcc
 
-randomGame: randomGameMain.o
-	$(CC) $@Main.o -Wall -g -o $@
+randomGame: randomGameMain.o $(MYLIBS)
+	$(CC) $@Main.o $(MYLIBS) -Wall -g -o $@
 	./$@
 
 .s.o:
