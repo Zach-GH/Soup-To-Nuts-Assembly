@@ -1,5 +1,5 @@
 #
-# Program Name: randomGame.s
+# Program Name: randomGameMain.s
 # Author: Zachary Meisner
 # Date: 10/27/2023
 # Purpose: Module 10 Guessing Game
@@ -28,16 +28,16 @@ main:
     LDR r4, [r1, #0]
 
     StartSentinelLoop:
-        #MOV r0, #-1
-        CMP r4, #-1
+        MOV r0, #-1
+        CMP r4, r0
         BEQ EndSentinelLoop
 
             # Loop Block
-           # MOV r0, #0 // clear the user inputi
+            MOV r0, #0 // clear the user inputi
 
             BL userInput
 
-           # MOV r4, r0
+            MOV r4, r0
             MOV r6, r0 // move the max value into r6 for outputting the invalidCase
 
             BL secondInput
@@ -45,34 +45,32 @@ main:
             MOV r1, r4 // move max value into r1
 
             BL checkNegative
-            #MOV r1, r0 // move output of checkNegative into r1 for loader output
+            MOV r1, r0 // move output of checkNegative into r1 for loader output
             MOV r4, r0
 
-            #CMP r1, #0
-            CMP r0, #0
+            CMP r1, #0
             BLE invalidCase // if the output is not 0 or negative, let the computer guess
 
-            #MOV r0, r6 // move max value into r1 for beanstalk generating cap (seems to work well)
+            MOV r0, r6 // move max value into r1 for beanstalk generating cap (seems to work well)
 
-            #BL magicBeanStalk
-            BL magicBean
+            BL magicBeanStalk
             # Output the computers guess
             MOV r10, r0
-            #MOV r1, r0
+            MOV r1, r0
             LDR r0, =computerGuess
             BL printf
 
-            BL checkGuess
+            BL checkUserGuess
 
             B EndIf
 
             invalidCase:
-            #MOV r1, #0 // Clear the r1 register
-            #MOV r1, r6 // Moving the max value into r1 for invalid output
+            MOV r1, #0 // Clear the r1 register
+            MOV r1, r6 // Moving the max value into r1 for invalid output
             LDR r0, =invalid
             BL printf
 
-            #B EndIf
+            B EndIf
 
             EndIf:
 
@@ -167,63 +165,6 @@ secondInput:
     # intake user input
     inputFormat2: .asciz "%d"
 
-#.text
-#.global checkNegativeNumber
-#checkNegativeNumber:
-#    CMP r0, #0
-#    BXLR
-
-.text
-.global magicBean
-magicBean:
-    MOV r0, #0 // lower
-    MOV r1, r6 // upper
-    BL binarySearch
-    MOV pc, lr
-
-.text
-.global binarySearch
-binarySearch:
-    CMP r1, r0
-    BLE binarySearchDone
-
-    ADD r2, r0, r1
-    LSR r2, r2, #1
-
-    LDR r3, =num
-    LDR r3, [r3, #0]
-
-    CMP r3, r2
-    BGT binarySearchUpper
-
-    MOV r1, r2
-    B binarySearch
-
-binarySearchUpper:
-    ADD r0, r2, #1
-    B binarySearch
-
-binarySearchDone:
-    MOV pc, lr
-
-
-.text
-.global checkGuess
-checkGuess:
-    LDR r0, =prompt3
-    BL printf
-
-    LDR r0, =inputFormat
-    LDR r1, =inputNum
-    BL scanf
-    LDR r1, =inputNum
-    LDR r0, [r1, #0]
-
-    MOV pc, lr
-.data
-    prompt3: .asciz "\n Enter 1 if correct 2 if lower, 3 if higher: "
-    inputFormat3: .asciz "%d"
-
 .text
 .global userCase
 # userCase function
@@ -307,4 +248,3 @@ userCase:
     badInput: .asciz "input must be 1 to 3\n"
     computerGuess2: .asciz "\nIs your number %d?\n"
     win: .asciz "\nWinner Winner Chicken Dinner!\n"
-
