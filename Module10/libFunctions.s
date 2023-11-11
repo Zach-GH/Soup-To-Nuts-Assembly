@@ -43,3 +43,36 @@ checkNegative:
     ADD sp, sp, #4
     MOV pc, lr
 #END checkNegative
+
+.global checkUserGuess
+.text
+checkUserGuess:
+    SUB sp, sp, #4
+    STR lr, [sp, #0]
+
+    LDR r0, =prompt
+    BL printf
+
+    LDR r0, =input
+    LDR r1, =guessFeedback
+    BL scanf
+
+    LDR r1, =guessFeedback
+    LDR r0, [r1, #0]
+
+    BL userCase
+
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
+    MOV pc, lr
+.data
+    prompt: .asciz "\nEnter the corresponding number for your answer\n
+                      Is the number:\n
+                      Higher?:     3\n
+                      Lower?:      2\n
+                      Correct!:    1\n"
+
+    guessFeedback: .word 0
+    input: .asciz "%d"
+#END checkUserGuess
+

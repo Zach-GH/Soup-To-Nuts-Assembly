@@ -1,27 +1,35 @@
-.bottom: .word 1
-.top: .word 100
-
 .text
-.global magicBeanStalk
+.global main
 .global setSeed
 .global randFunc
-magicBeanStalk:
+main:
     SUB sp, sp, #4
     STR lr, [sp]
+
+    #Prompt for the seed
+    LDR r0, =prompt
+    BL printf
+    LDR r0, =format
+    LDR r1, =seed
+    BL scanf
+
+    #Set the seed for the random number
+    LDR r0, =seed
+    LDR r0, [r0]
 
     BL setSeed
 
     # print first random number
     BL randFunc
-    #MOV r1, r0
-    #LDR r0, =output
-    #BL printf
+    MOV r1, r0
+    LDR r0, =output
+    BL printf
 
     # print second random number
-    #BL randFunc
-    #MOV r1, r0
-    #LDR r0, =output
-    #BL printf
+    BL randFunc
+    MOV r1, r0
+    LDR r0, =output
+    BL printf
 
     LDR lr, [sp]
     ADD sp, sp, #4
