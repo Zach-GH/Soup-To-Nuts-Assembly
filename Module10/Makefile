@@ -1,6 +1,6 @@
 game: randomGame
 
-MYLIBS = libFunctions.o RandFunc.o
+MYLIBS = RandFunc.o
 
 CC = gcc
 
