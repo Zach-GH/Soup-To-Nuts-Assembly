@@ -1,48 +1,4 @@
-.text
-.global magicBeanStalk
-.global setSeed
 .global randFunc
-magicBeanStalk:
-    SUB sp, sp, #4
-    STR lr, [sp]
-
-    # We start here and it is important to note that 
-    # The number we recieve is the max value.
-    LDR r0, =seed
-    LDR r0, [r0]
-
-    BL setSeed
-    # print first random number
-    BL randFunc
-
-    LDR lr, [sp]
-    ADD sp, sp, #4
-    MOV pc, lr
-.data
-    prompt: .asciz "\nEnter the seed: "
-    format: .asciz "%d"
-    seed:   .word  0
-    output: .asciz "\nThe random number is %d\n"
-
-.text
-# Function: 	setSeed
-# Author:	Charles Kann
-# Date:		7/31/2020
-# Purpose:	Set a seed for the randFunc
-# Input:	r0: seed
-# Output:	None
-# Side effect:	Seed is set
-setSeed:
-    SUB sp, sp, #4
-    STR lr, [sp]
-
-    BL srand  // r0 already has the seed
-
-    LDR lr, [sp]
-    ADD sp, sp, #4
-    MOV pc, lr
-
-
 .text
 # Function: 	randFunc
 # Author:	Charles Kann
