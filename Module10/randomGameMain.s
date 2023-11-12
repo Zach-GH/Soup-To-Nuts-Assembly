@@ -32,75 +32,35 @@ main:
         BEQ EndSentinelLoop
 
             BL userInput
-            # Move the max value into r6 for outputting invalidCase
+            # Move the max value into r6
             MOV r6, r0
+
             # We have a max val, let us also assign a lowest val
             MOV r4, #1
 
             BL secondInput
+            MOV r5, r0
 
-            # move max value into r1
-            MOV r1, r6
+            SUB r0, r6, r0
 
-            SUB r0, r1, r0
-            # Debugging statement for user verification
             CMP r0, #1
             BLT invalidCase
 
-            # move max val into r0 for beanstalk gen cap
-            MOV r0, r6
-
-            BL magicBeanStalk
-            # Output the computers guess
-            MOV r10, r0
-
-            # When the loop is over its business as usual
-            BL savingGrace
-            CMP r0, r4
-            MOVGE r1, #1
-
             CMP r0, r6
-            MOVLE r2, #1
-
-            AND r1, r1, r2
-            CMP r1, #1
-            BEQ onwardHo
-            BL savingGrace
-
-            onwardHo:
-                MOV r1, r0
-                LDR r0, =computerGuess
-                BL printf
-
-                LDR r0, =checkUserGuess
-                BL printf
-
-                LDR r0, =checkUserInputInput
-                LDR r1, =guessFeedback
-                BL scanf
-                LDR r1, =guessFeedback
-                LDR r0, [r1, #0]
+            BGT invalidCase
 
             StartLoop:
                 CMP r0, #1
                 BEQ EndLoop
 
-                    BL guessingGame
-
-                    LDR r0, =checkUserGuess
-                    BL printf
-
-                    LDR r0, =checkUserInputInput
-                    LDR r1, =guessFeedback
-                    BL scanf
-                    LDR r1, =guessFeedback
-                    LDR r0, [r1, #0]
+                    #MOV r0, r10
+                    BL checkRandom
 
                     B StartLoop
 
             EndLoop:
-            LDR r0, =win
-            BL printf
+                LDR r0, =win
+                BL printf
 
             # Get next value
             LDR r0, =prompt
@@ -134,17 +94,8 @@ main:
     input:   .asciz "%d"
     # Storage for the user input
     num:     .word 0
-    # output
-    computerGuess:  .asciz "\nIs your number %d?\n"
     # invalid
     invalid: .asciz "\nInvalid user input, please enter a number above 0 and below the max value %d\n"
-    checkUserGuess: .asciz "\nEnter the corresponding number for your answer\n
-                              Is the number:\n
-                              Higher?:     3\n
-                              Lower?:      2\n
-                              Correct!:    1\n"
-    guessFeedback: .word 0
-    checkUserInputInput: .asciz "%d"
     win: .asciz "\nYou Win!\n"
     debug: .asciz "\nDEBUG Value: %d\n"
     debug2: .asciz "\nDEBUG2 Value: %d\n"
@@ -175,6 +126,7 @@ userInput:
     prompt1: .asciz "\nEnter Max Value that the computer can guess against: "
     # intake user input
     inputFormat: .asciz "%d"
+
 
 .text
 # function secondInput
@@ -209,11 +161,10 @@ guessingGame:
     SUB sp, sp, #16
     STR lr, [sp, #12]
     # Store r10 to preserve its value
-    STR r10, [sp, #4]
+    #STR r10, [sp, #4]
 
     CMP r0, #2
     MOVGE r1, #1
-
     CMP r0, #3
     MOVLE r2, #1
 
@@ -236,26 +187,11 @@ guessingGame:
     # and we want to do a binary search
     # we add 2 to the low value
     ADD r4, r4, #2
-    #MOV r4, r5
     MOV r1, r4
     LDR r0, =lower
     BL printf
 
-    MOV r0, r5
-    #BL randFunc
-    #BL savingGrace
-    CMP r0, r4
-    MOVGE r1, #1
-
-    CMP r0, r6 
-    MOVLE r2, #1
-    BEQ onwardHo2
-    BL savingGrace
-    B EndOnwardHo2
-    #MOV r1, r0
-    #LDR r0, =computerGuess2
-    #BL printf
-
+    BL checkRandom
     # End of case 3
     B EndIf2
 
@@ -266,33 +202,14 @@ guessingGame:
     # and we want to do a binary search
     # we subtract 2 from the high value
     SUB r6, r6, #2
-    #MOV r6, r5
     MOV r1, r6
     LDR r0, =higher
     BL printf
 
-    MOV r0, r5
-    #BL randFunc
-    #BL savingGrace
-    CMP r0, r4
-    MOVGE r1, #1
-
-    CMP r0, r6
-    MOVLE r2, #1
-    BEQ onwardHo2
-    BL savingGrace
-    B EndOnwardHo2
-
-    onwardHo2:
-    MOV r1, r0
-    LDR r0, =computerGuess2
-    BL printf
+    #MOV r0, r10
+    BL checkRandom
     B EndIf2
 
-    # End of case 2
-    B EndIf2
-
-    EndOnwardHo2:
     EndIf2:
 
     LDR lr, [sp, #12]
@@ -304,47 +221,76 @@ guessingGame:
     lower: .asciz "\nLower Number Threshold: %d\n"
     higher: .asciz "\nHigher Number Threshold: %d\n"
 
+
 .text
-.global savingGrace
-# Saving Grace Function
-savingGrace:
-    SUB sp, sp, #20
-    STR lr, [sp, #14]
+.global checkRandom
+checkRandom:
+SUB sp, sp, #20
+STR lr, [sp, #16]
 
-    MOV r5, r0
-    SUB r2, r6, r5
+MOV r0, r6
+BL randFunc
+MOV r10, r0
 
-    CMP r2, r4
-    BGE checkHigher
+MOV r1, r0
+LDR r0, =compGuess
+BL printf
 
-    savingGraceLoop:
-        BL randFunc
-        #LDR r0, =debug3
-        #BL printf
-        MOV r10, r0
-        MOV r5, r0
-        SUB r2, r6, r5
+CMP r10, r4
+MOVGE r1, #1
 
-        CMP r2, r4
-        BGE checkHigher
-        CMP r2, r4
-        BLE savingGraceLoop
+CMP r10, r6
+MOVLE r2, #1
 
-        MOV r0, r5
+AND r1, r1, r2
+CMP r1, #1
+BEQ randomPassed
+BNE newRandomNumber
 
-    checkHigher:
-    CMP r5, r6
-    BGE savingGraceLoop
-    MOV r0, r5
-    B EndIfSG
+randomPassed:
+    MOV r1, r10
+    LDR r0, =computerGuess
+    BL printf
 
-    EndIfSG:
-    LDR lr, [sp, #14]
-    ADD sp, sp, #20
-    MOV pc, lr
+    LDR r0, =checkUserGuess
+    BL printf
+
+    LDR r0, =checkUserInputInput
+    LDR r1, =guessFeedback
+    BL scanf
+    LDR r1, =guessFeedback
+    LDR r0, [r1, #0]
+    CMP r0, #1
+    BEQ returnToMainLoop
+
+    BL guessingGame
+
+    B returnToMain
+
+B EndRandom
+
+newRandomNumber:
+    BL checkRandom
+B EndRandom
+
+returnToMainLoop:
+
+returnToMain:
+
+EndRandom:
+
+LDR lr, [sp, #16]
+ADD sp, sp, #20
+MOV pc, lr
+
 .data
-    debug3: .asciz "\nDEBUG 3: %d\n"
-    debug4: .asciz "\nDEBUG 4: %d\n"
-    checkHigh: .asciz "\nCheck Higher\n"
-    saveLoop: .asciz "\nSave Loop\n"
-
+computerGuess: .asciz "\nIs your number %d?"
+checkUserGuess: .asciz "\nEnter the corresponding number for your answer\n
+                           Is the number:\n
+                           Higher?:     3\n
+                           Lower?:      2\n
+                           Correct!:    1\n"
+checkUserInputInput: .asciz "%d"
+guessFeedback: .word 0
+compGuess: .asciz "\nComputer Guess: %d\n"
+NotPassed: .asciz "\nNot Passed\n"
