@@ -12,4 +12,4 @@ randomGame: randomGameMain.o $(MYLIBS)
 	$(CC) $(@:.o=.s) -g -c -o $@
 
 clean:
-	rm *.o a.out
+	rm *.o $(objects) randomGame
