@@ -96,7 +96,7 @@ main:
     num:     .word 0
     # invalid
     invalid: .asciz "\nInvalid user input, please enter a number above 0 and below the max value %d\n"
-    win: .asciz "\nYou Win!\n"
+    win: .asciz "\nComputer Wins! You Lose!\n"
     debug: .asciz "\nDEBUG Value: %d\n"
     debug2: .asciz "\nDEBUG2 Value: %d\n"
 
@@ -188,6 +188,7 @@ guessingGame:
     # we add 2 to the low value
     ADD r4, r4, #2
     MOV r1, r4
+    
     LDR r0, =lower
     BL printf
 
@@ -197,7 +198,7 @@ guessingGame:
 
     # if input is 2
     case_2:
-    # case 2 output (the number is lower)
+    # case 2 output (the number is lower)i
     # Since the number is lower
     # and we want to do a binary search
     # we subtract 2 from the high value
