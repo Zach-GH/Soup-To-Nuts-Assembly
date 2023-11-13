@@ -16,7 +16,7 @@ main:
     STR lr, [sp, #0]
 
     # Clear the screen
-    BL clearScreen
+    #BL clearScreen
 
     # initialize by prompting user
     LDR r0, =prompt
@@ -365,7 +365,7 @@ BNE newRandomNumber
 
 randomPassed:
     # Clear screen
-    BL clearScreen
+    #BL clearScreen
     MOV r1, r8
     # Almost Won statement
     LDR r0, =almostWon
@@ -404,7 +404,7 @@ B EndRandom
 
 youWon:
     # Clear Screen
-    BL clearScreen
+    #BL clearScreen
     # Move r8 into r1 for output
     MOV r1, r8
     LDR r0, =computerLost
@@ -547,7 +547,7 @@ guessAgainstComputer:
                 BL computerGuessPassed
 
             youBeatTheComputer:
-                BL clearScreen
+                #BL clearScreen
                 LDR r0, =youBeatMe
                 BL printf
                 MOV r0, #2
@@ -565,7 +565,7 @@ guessAgainstComputer:
             BL computerGuessPassed
 
         theHouseAlwaysWins:
-            BL clearScreen
+            #BL clearScreen
             MOV r1, r8
             LDR r0, =houseWins
             BL printf
