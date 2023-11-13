@@ -1,15 +1,19 @@
-goldenRatio: recursion
+gold: recursion
 
-MYLIBS = Summation.o
+sum: Summation
 
 CC = gcc
 
-recursion: recursionMain $(MYLIBS)
-	$(CC) $@Main.o $(MYLIBS) -Wall -g -o $@
+recursion: recursionMain.o
+	$(CC) $@Main.o  -Wall -g -o $@
+	./$@
+
+Summation: SummationMain.o
+	$(CC) $@Main.o -Wall -g -o $@
 	./$@
 
 .s.o:
 	$(CC) $(@:.o=.s) -g -c -o $@
 
 clean:
-	rm *.o $(objects) recursion
+	rm *.o $(objects) recursionMain Summation
