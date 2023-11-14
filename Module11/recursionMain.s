@@ -21,17 +21,43 @@ main:
         startMainLoop:
             # If r0 is less than 2 go to multiRecursion
             CMP r0, #3
-            BLT multiCase
+            BLT getMultiInput
 
-            multiCase:
+            getMultiInput:
                 CMP r0, #2
-                BLT goldCase
-                BL multiRecursion
+                BLT getGoldInput
+
+                MOV r0, #1
+                BL getInput
+                MOV r6, r0
+
+                MOV r0, #0
+                BL getInput
+                MOV r4, r0
+
+                BL multiCase
+
+                multiCase:
+                BL multiSum
+                MOV r1, r0
+                LDR r0, =outputMult
+                BL printf
+                MOV r0, #-1
+                BL inputVerification
                 
-            goldCase:
+            getGoldInput:
                 CMP r0, #1
                 BLT EndMainLoop
-                BL goldenRatio
+
+                MOV r0, #0
+                BL getInput
+                #MOV r4, r0
+                BL goldCase
+
+                goldCase:
+                BL fibSum
+                MOV r0, #-1
+                BL inputVerification
 
                 
     badInitInput:
@@ -107,106 +133,6 @@ getInput:
 
 # End getInput
 
-.text
-.global multiRecursion
-# A program to calculate multiplication using successive addition with recursion.
-# Mult(m,n)=if n is 1 return m
-# else return m+Mult(m-1,n)
-multiRecursion:
-    SUB sp, sp, #12
-    STR lr, [sp, #0]
-
-    MOV r0, #1
-    BL getInput
-    MOV r6, r0
-    MOV r0, #0
-    BL getInput
-    MOV r4, r0
-
-    BL Recursion
-
-    #Recursion:
-        # if (n == 1) return m
-        #CMP r4, #1
-        #BNE Else
-            #MOV r0, r6
-            #B Return
-
-    # else return m + Mult(m-1,n)
-    #Else:
-        # This has to be special and put into the r8 register
-        # So our subtraction does not affect the overall output
-        # Due to m + m-1 (where m has to stay unchanged)
-        #SUB r8, r6, #1
-        #MOV r0, r8
-        #MOV r1, r4
-
-        #MUL r0, r8, r4
-        #BL Recursion
-        #ADD r0, r0, r6
-        #B Return
-    EndIf:
-
-    Return:
-        MOV r1, r0
-        LDR r0, =outputMult
-        BL printf
-        MOV r0, #-1
-        BL inputVerification
-
-        LDR lr, [sp, #0]
-        ADD sp, sp, #12
-        MOV pc, lr
-
-Recursion:
-    CMP r4, #1
-    BEQ RecursionBaseCase
-        #MOV r0, r6
-        #B RecursionReturn
-
-    #Else:
-    SUB r8, r6, #1
-    MOV r0, r8
-    MOV r1, r4
-
-    BL Recursion
-    ADD r0, r6, r0
-
-RecursionBaseCase:
-    B RecursionReturn
-
-RecursionReturn:
-    BX lr
-
-# End multiRecursion
-
-.text
-.global goldenRatio
-# A program to calculate a Fibonacci number recursively.
-# A Fibonacci number is defined recursively as:
-# Fib(n) = if (n==0 or n==1) return 1
-# else return Fib(n-1)+Fib(n=2)
-goldenRatio:
-    SUB sp, sp, #16
-    STR lr, [sp, #0]
-
-    # prompt user for input1
-    MOV r0, #1
-    BL getInput
-    # move input1 into r6 for safekeeping
-    MOV r6, r0
-    MOV r1, r6
-    LDR r0, =outputNumber
-    BL printf
-    MOV r0, r6
-    BL inputVerification
-
-    LDR lr, [sp, #0]
-    ADD sp, sp, #16
-    MOV pc, lr
-
-# End goldenRatio
-
 .data
     # main
     outputNumber: .asciz "\nOutput number: %d\n"
@@ -221,5 +147,4 @@ goldenRatio:
     inputNum: .word 0
     # multiRecursion
     outputMult: .asciz "\nOutput multiplied recursion: %d\n"
-    # goldenRatio
 

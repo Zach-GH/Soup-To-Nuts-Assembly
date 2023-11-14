@@ -1,19 +1,14 @@
 gold: recursion
 
-sum: Summation
-
+MYLIBS = Summation.o
 CC = gcc
 
-recursion: recursionMain.o
-	$(CC) $@Main.o  -Wall -g -o $@
-	./$@
-
-Summation: SummationMain.o
-	$(CC) $@Main.o -Wall -g -o $@
+recursion: recursionMain.o $(MYLIBS)
+	$(CC) $@Main.o  $(MYLIBS) -Wall -g -o $@
 	./$@
 
 .s.o:
 	$(CC) $(@:.o=.s) -g -c -o $@
 
 clean:
-	rm *.o $(objects) recursionMain Summation
+	rm *.o $(objects) recursion Summation
