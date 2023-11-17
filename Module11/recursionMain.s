@@ -42,8 +42,8 @@ main:
                 MOV r1, r0
                 LDR r0, =outputMult
                 BL printf
-                MOV r0, #-1
-                BL inputVerification
+                MOV r0, #0
+                B startInitLoop
                 
             getGoldInput:
                 CMP r0, #1
@@ -51,15 +51,15 @@ main:
 
                 MOV r0, #0
                 BL getInput
-                MOV r6, r0
+                MOV r4, r0
                 BL goldCase
 
                 goldCase:
-                MOV r4, #0
-                MOV r0, r6
+                MOV r6, #0
+                MOV r0, r4
                 BL fibSum
-                MOV r0, #-1
-                BL inputVerification
+                MOV r0, #0
+                B startInitLoop
 
                 
     badInitInput:
