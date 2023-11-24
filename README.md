@@ -12,3 +12,7 @@ A lot of the work in my class was done in MIPS/ARM assembly, in addition to usin
 There is more work that was done in this class that is not displayed, such as the conversion of binary values to the assembly code, and the assembly code to the binary value, converted using state maps provided to us, as well as a defined structure for transliterating each command.
 
 This is but a small summation of the work done in this class, as we were avidly researching and studying not only the implementation and use-case of the language itself, but the environments and scenarios in which you would want to use and implement the language, and the differences/relationships that it has with High Level Programming Languages, as well as the different decisions an engineer or developer may have to make in the field when it comes to safe programming, and the implementation of common programming decisions, such as procedural code v. structural code, static versus non-static, and much more.
+
+To run Logism, I would have to download Logism for MacOSx and then I would have to run `sudo java -jar logism.jar` as running it normally would not work and crash with an error.
+
+Additionally, the sudo command has to be run to allow the jar file to save the created .circ files for any created circuits.
