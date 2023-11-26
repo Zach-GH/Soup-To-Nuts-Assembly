@@ -7,11 +7,9 @@ The work I did in my Computer Organization class taught by Charles Kahn at JHU, 
 
 [Introduction to Assembly Language Programming From Soup to Nuts](https://cupola.gettysburg.edu/oer/8/)
 
-[Digital Circuit Projects: An Overview of Digital Circuits Through Implementing Integrated Circuits - Second Edition]([https://cupola.gettysburg.edu/oer/8/](https://cupola.gettysburg.edu/cgi/viewcontent.cgi?article=1000&context=oer))
+[Digital Circuit Projects: An Overview of Digital Circuits Through Implementing Integrated Circuits - Second Edition](https://cupola.gettysburg.edu/cgi/viewcontent.cgi?article=1000&context=oer)
 
 [Implementing a One Address CPU in Logisim](https://cupola.gettysburg.edu/cgi/viewcontent.cgi?article=1002&context=oer)
-
-[Digital Circuit Projects: An Overview of Digital Circuits Through Implementing Integrated Circuits - Second Edition](https://cupola.gettysburg.edu/cgi/viewcontent.cgi?article=1000&context=oer)
 
 A lot of the work in my class was done in MIPS/ARM assembly, in addition to using Logism to create circuit maps. Early on in the class, we additionally were asked to demonstrate our abilities to create programs to implement some of the basic logic needed for programmatically setting and manipulating the mathematical variables used in binary and hex values to understand the overall communications a computer transliterates during runtime.
 
