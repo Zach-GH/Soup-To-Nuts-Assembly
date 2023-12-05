@@ -10,82 +10,79 @@ import javax.swing.JTextField;
 
 /* Main gui instantiation */
 public class mainFrame extends JFrame implements ActionListener {
-    static JButton toUpperBtn;
-    static JButton toLowerBtn;
+    static JButton assemblerBtn;
+    static JButton disassemblerBtn;
     static JButton binaryBtn;
     static JButton intToHexBtn;
     static JButton asciiBtn;
     static JButton clearBtn;
     static JFrame frame;
-    static JLabel upperLabel;
-    static JLabel lowerLabel;
+    static JLabel assemblerLabel;
+    static JLabel disassemblerLabel;
     static JLabel binaryLabel;
     static JLabel intToHexLabel;
     static JLabel asciiLabel;
-    static JTextField textField;
+    static JTextField aTextField1;
+    static JTextField aTextField2;
+    static JTextField aTextField3;
+    static JTextField dTextField;
 
 	mainFrame() {
         /* Soup To Nuts */
-		setTitle("Soup To Nuts Assembly Module 1 Zachary Meisner");
+		setTitle("M7 Extra Credit Zachary Meisner");
 
 		/* Buttons */
-		toUpperBtn = new JButton("toUpper");
-		toLowerBtn = new JButton("toLower");
-		binaryBtn = new JButton("Binary To Hex");
-		intToHexBtn = new JButton("Int To Hex");
-		asciiBtn = new JButton("ASCII Value");
+		assemblerBtn = new JButton("Assemble");
+		disassemblerBtn = new JButton("Disassemble");
 		clearBtn = new JButton("Clear Values");
 
         /* JLabels */
-        upperLabel = new JLabel("0");
-		lowerLabel = new JLabel("0");
-		binaryLabel = new JLabel("0");
-		intToHexLabel = new JLabel("0");
-		asciiLabel = new JLabel("0");
+        assemblerLabel = new JLabel("0");
+		disassemblerLabel = new JLabel("0");
 
         /* Create text field for user input */
-        textField = new JTextField(16);
+        aTextField1 = new JTextField(15);
+        aTextField1.setDocument(new textFieldLimit(3));
+        aTextField2 = new JTextField(15);
+        aTextField2.setDocument(new textFieldLimit(2));
+        aTextField3 = new JTextField(15);
+        aTextField3.setDocument(new textFieldLimit(7));
+        dTextField = new JTextField(15);
+        dTextField.setDocument(new textFieldLimit(8));
 
         /* Create and set the font for the text field */
         Font font = new Font("Comic Sans", Font.BOLD, 20);
-        textField.setFont(font);
-		textField.setBounds(165, 20, 115, 55);
-
+        aTextField1.setFont(font);
+		aTextField1.setBounds(165, 20, 115, 55);
+        aTextField2.setFont(font);
+		aTextField2.setBounds(285, 20, 115, 55);
+        aTextField3.setFont(font);
+		aTextField3.setBounds(405, 20, 115, 55);
         /* JButton Bounds */
-		toUpperBtn.setBounds(165, 70, 115, 55);
-		toLowerBtn.setBounds(165, 120, 115, 55);
-		binaryBtn.setBounds(165, 170, 115, 55);
-		intToHexBtn.setBounds(165, 220, 115, 55);
-		asciiBtn.setBounds(165, 270, 115, 55);
+		assemblerBtn.setBounds(165, 70, 115, 55);
+        dTextField.setFont(font);
+		dTextField.setBounds(165, 130, 115, 55);
+		disassemblerBtn.setBounds(165, 180, 115, 55);
 		clearBtn.setBounds(165, 320, 115, 55);
         /* JLabel Bounds */
-        upperLabel.setBounds(300, 70, 299, 55);
-		lowerLabel.setBounds(300, 120, 299, 55);
-		binaryLabel.setBounds(300, 170, 299, 55);
-		intToHexLabel.setBounds(300, 220, 299, 55);
-		asciiLabel.setBounds(300, 270, 299, 55);
+        assemblerLabel.setBounds(300, 70, 299, 55);
+		disassemblerLabel.setBounds(300, 180, 299, 55);
 
         /* Button Actionlisteners */
-        toUpperBtn.addActionListener(this);
-        toLowerBtn.addActionListener(this);
-        binaryBtn.addActionListener(this);
-        intToHexBtn.addActionListener(this);
-        asciiBtn.addActionListener(this);
+        assemblerBtn.addActionListener(this);
+        disassemblerBtn.addActionListener(this);
         clearBtn.addActionListener(this);
 
 		/* Set up the frame with components */
-        add(textField);
-		add(toUpperBtn);
-		add(toLowerBtn);
-		add(binaryBtn);
-		add(intToHexBtn);
-		add(asciiBtn);
+        add(aTextField1);
+        add(aTextField2);
+        add(aTextField3);
+		add(assemblerBtn);
+        add(dTextField);
+		add(disassemblerBtn);
 		add(clearBtn);
-		add(upperLabel);
-		add(lowerLabel);
-		add(binaryLabel);
-		add(intToHexLabel);
-		add(asciiLabel);
+		add(assemblerLabel);
+		add(disassemblerLabel);
 
         /* JPanel ops to finalize output */
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,56 +96,82 @@ public class mainFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         /* Objects for input conversion */
-        outputHex oh = new outputHex();
-        asciiConverter ac = new asciiConverter();
+
+        machineCodeTranslator mct = new machineCodeTranslator();
+        // asciiConverter ac = new asciiConverter();
+
         /* Temporary variables used for buffer input */
         String binaryToHexTmp;
         Integer intToHexTmp;
+        String aTmpText1;
+        String aTmpText2;
+        String aTmpText3;
+        String dTmpText;
+
         String asciiInput;
         String asciiOutput;
         String intToHexOutput;
         String binaryToHexOutput;
 
-        if (s.equals("toUpper")) {
-           asciiInput = textField.getText();
-           asciiOutput = ac.toUpper(asciiInput);
-           upperLabel.setText("<html>" + asciiOutput + "</html>");
-           textField.setText("");
-        } else if (s.equals("toLower")) {
-           asciiInput = textField.getText();
-           asciiOutput = ac.toLower(asciiInput);
-           lowerLabel.setText("<html>" + asciiOutput + "</html>");
-           textField.setText("");
+        // Ex machine code
+        String machineCode = "e1a01002";
+
+        if (s.equals("Assemble")) {
+           /* Assure that whatever value entered is a string */
+           aTmpText1 = aTextField1.getText().toString();
+           aTmpText2 = aTextField2.getText().toString();
+           aTmpText3 = aTextField3.getText().toString();
+
+            // Translate machine code to assembly
+           String asmInstruction = mct.translateMachineCode(machineCode);
+
+           System.out.println("Machine Code: " + machineCode);
+           System.out.println("Assembly Instruction: " + asmInstruction);
+
+           assemblerLabel.setText("<html>" + aTmpText1 + " " + aTmpText2 + " " + aTmpText3 + "</html>");
+           aTextField1.setText("");
+           aTextField2.setText("");
+           aTextField3.setText("");
+        } else if (s.equals("Disassemble")) {
+           /* Assure that whatever value entered is a string */
+           dTmpText = dTextField.getText().toString();
+        // binaryToHexOutput = oh.binaryToHex(binaryToHexTmp);
+        // binaryLabel.setText("<html>" + binaryToHexOutput + "</html>");
+
+        //    asciiInput = textField.getText();
+        //    asciiOutput = ac.toLower(asciiInput);
+           disassemblerLabel.setText("<html>" + dTmpText + "</html>");
+           dTextField.setText("");
         } else if (s.equals("Binary To Hex")) {
             /* Assure that whatever value entered is a string */
-            binaryToHexTmp = textField.getText().toString();
-            binaryToHexOutput = oh.binaryToHex(binaryToHexTmp);
-            binaryLabel.setText("<html>" + binaryToHexOutput + "</html>");
+            // binaryToHexTmp = textField.getText().toString();
+            // binaryToHexOutput = oh.binaryToHex(binaryToHexTmp);
+            // binaryLabel.setText("<html>" + binaryToHexOutput + "</html>");
         } else if (s.equals("Int To Hex")) {
-            intToHexTmp = 0;
-            try {
-                /* Assure that whatever value entered is an Integer */
-                intToHexTmp = Integer.parseInt(textField.getText());
-                /* Convert from Int to Hex */
-                intToHexOutput = oh.intToHex(intToHexTmp);
-                intToHexLabel.setText("<html>" + intToHexOutput + "</html>");
-            } catch (NumberFormatException ne) {
-                intToHexOutput = textField.getText();
-                System.out.println(intToHexOutput + " is not a valid integer"); 
-            } 
-            textField.setText("");
+            // intToHexTmp = 0;
+            // try {
+            //     /* Assure that whatever value entered is an Integer */
+            //     intToHexTmp = Integer.parseInt(textField.getText());
+            //     /* Convert from Int to Hex */
+            //     intToHexOutput = oh.intToHex(intToHexTmp);
+            //     intToHexLabel.setText("<html>" + intToHexOutput + "</html>");
+            // } catch (NumberFormatException ne) {
+            //     intToHexOutput = textField.getText();
+            //     System.out.println(intToHexOutput + " is not a valid integer"); 
+            // } 
+            // textField.setText("");
         } else if (s.equals("ASCII Value")) {
-            asciiInput = textField.getText();
-            asciiOutput = ac.asciiToValue(asciiInput);
-            asciiLabel.setText("<html>" + asciiOutput + "</html>");
-            textField.setText("");
+            // asciiInput = textField.getText();
+            // asciiOutput = ac.asciiToValue(asciiInput);
+            // asciiLabel.setText("<html>" + asciiOutput + "</html>");
+            // textField.setText("");
         } else if (s.equals("Clear Values")) {
-            upperLabel.setText("0");
-            lowerLabel.setText("0");
-            binaryLabel.setText("0");
-            intToHexLabel.setText("0");
-            asciiLabel.setText("0");
-            textField.setText("");
+            assemblerLabel.setText("0");
+            disassemblerLabel.setText("0");
+            aTextField1.setText("");
+            aTextField2.setText("");
+            aTextField3.setText("");
+            dTextField.setText("");
         }
     }
 }
