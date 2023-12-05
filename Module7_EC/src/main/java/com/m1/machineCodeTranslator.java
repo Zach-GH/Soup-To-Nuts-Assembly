@@ -32,7 +32,7 @@ public class machineCodeTranslator {
     public static String translateALOpcode(String opcodeAndOperands) {
         // Extract opcode and operands based on the ARM instruction format
         String opcode = opcodeAndOperands.substring(0, 4);
-        String operands = opcodeAndOperands.substring(3);
+        String operands = opcodeAndOperands.substring(0);
         System.out.println("opcode " + opcode);
         System.out.println("operands " + operands);
         // Translate based on the opcode
@@ -47,23 +47,23 @@ public class machineCodeTranslator {
 
     public static String translateMOVInstruction(String operands) {
         // Extract relevant fields from operands
-        System.out.println("operands to choose from " + operands);
         char immediateFlag = operands.charAt(0);
         System.out.println("immediateFlag " + immediateFlag);
-        String destinationRegister = operands.substring(0, 1);
+        String destinationRegister = operands.substring(1, 2);  // Adjusted index
         System.out.println("destinationRegister " + destinationRegister);
-        String sourceRegister = operands.substring(0, 1);
+        String sourceRegister = operands.substring(2, 3);  // Adjusted index
         System.out.println("sourceRegister " + sourceRegister);
-        String immediateValue = operands.substring(1);
+        String immediateValue = operands.substring(4);  // Adjusted index
         System.out.println("immediateValue " + immediateValue);
 
         // Translate based on the immediate flag
         if (immediateFlag == '1') {
             // Immediate value provided
-            return "MOV R" + Integer.parseInt(destinationRegister, 2) + ", #" + Integer.parseInt(immediateValue, 2);
+            return "MOV R" + Integer.parseInt(destinationRegister, 16) + ", #" + Integer.parseInt(sourceRegister, 16);
         } else {
             // Register to Register move
-            return "MOV R" + Integer.parseInt(destinationRegister, 2) + ", R" + Integer.parseInt(sourceRegister, 2);
+            return "MOV R" + Integer.parseInt(destinationRegister, 16) + ", R" + Integer.parseInt(immediateValue, 16);
         }
     }
+    
 }
