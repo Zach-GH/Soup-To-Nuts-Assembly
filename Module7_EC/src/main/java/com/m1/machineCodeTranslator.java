@@ -1,14 +1,6 @@
 package main.java.com.m1;
 
 public class machineCodeTranslator {
-    // // Ex machine code
-    // String machineCode = "e1a01002";
-
-    // // Translate machine code to assembly
-    // String asmInstruction = translateMachineCode(machineCode);
-
-    // System.out.println("Machine Code: " + machineCode);
-    // System.out.println("Assembly Instruction: " + assemblyInstruction);
 
     public static String translateMachineCode(String machineCode) {
         // Extract relevant fields from the machine code
@@ -49,11 +41,11 @@ public class machineCodeTranslator {
         // Extract relevant fields from operands
         char immediateFlag = operands.charAt(0);
         System.out.println("immediateFlag " + immediateFlag);
-        String destinationRegister = operands.substring(1, 2);  // Adjusted index
+        String destinationRegister = operands.substring(1, 2);
         System.out.println("destinationRegister " + destinationRegister);
-        String sourceRegister = operands.substring(2, 3);  // Adjusted index
+        String sourceRegister = operands.substring(2, 3);
         System.out.println("sourceRegister " + sourceRegister);
-        String immediateValue = operands.substring(4);  // Adjusted index
+        String immediateValue = operands.substring(4);
         System.out.println("immediateValue " + immediateValue);
 
         // Translate based on the immediate flag

@@ -12,16 +12,10 @@ import javax.swing.JTextField;
 public class mainFrame extends JFrame implements ActionListener {
     static JButton assemblerBtn;
     static JButton disassemblerBtn;
-    static JButton binaryBtn;
-    static JButton intToHexBtn;
-    static JButton asciiBtn;
     static JButton clearBtn;
     static JFrame frame;
     static JLabel assemblerLabel;
     static JLabel disassemblerLabel;
-    static JLabel binaryLabel;
-    static JLabel intToHexLabel;
-    static JLabel asciiLabel;
     static JTextField aTextField1;
     static JTextField aTextField2;
     static JTextField aTextField3;
@@ -98,20 +92,12 @@ public class mainFrame extends JFrame implements ActionListener {
         /* Objects for input conversion */
 
         machineCodeTranslator mct = new machineCodeTranslator();
-        // asciiConverter ac = new asciiConverter();
 
         /* Temporary variables used for buffer input */
-        String binaryToHexTmp;
-        Integer intToHexTmp;
         String aTmpText1;
         String aTmpText2;
         String aTmpText3;
         String dTmpText;
-
-        String asciiInput;
-        String asciiOutput;
-        String intToHexOutput;
-        String binaryToHexOutput;
 
         // Ex machine code
         String machineCode = "e1a01002";
@@ -128,43 +114,16 @@ public class mainFrame extends JFrame implements ActionListener {
            System.out.println("Machine Code: " + machineCode);
            System.out.println("Assembly Instruction: " + asmInstruction);
 
-           assemblerLabel.setText("<html>" + aTmpText1 + " " + aTmpText2 + " " + aTmpText3 + "</html>");
-           aTextField1.setText("");
-           aTextField2.setText("");
-           aTextField3.setText("");
+           assemblerLabel.setText("<html>" + asmInstruction + "</html>");
+
         } else if (s.equals("Disassemble")) {
            /* Assure that whatever value entered is a string */
            dTmpText = dTextField.getText().toString();
-        // binaryToHexOutput = oh.binaryToHex(binaryToHexTmp);
-        // binaryLabel.setText("<html>" + binaryToHexOutput + "</html>");
 
-        //    asciiInput = textField.getText();
-        //    asciiOutput = ac.toLower(asciiInput);
-           disassemblerLabel.setText("<html>" + dTmpText + "</html>");
-           dTextField.setText("");
-        } else if (s.equals("Binary To Hex")) {
-            /* Assure that whatever value entered is a string */
-            // binaryToHexTmp = textField.getText().toString();
-            // binaryToHexOutput = oh.binaryToHex(binaryToHexTmp);
-            // binaryLabel.setText("<html>" + binaryToHexOutput + "</html>");
-        } else if (s.equals("Int To Hex")) {
-            // intToHexTmp = 0;
-            // try {
-            //     /* Assure that whatever value entered is an Integer */
-            //     intToHexTmp = Integer.parseInt(textField.getText());
-            //     /* Convert from Int to Hex */
-            //     intToHexOutput = oh.intToHex(intToHexTmp);
-            //     intToHexLabel.setText("<html>" + intToHexOutput + "</html>");
-            // } catch (NumberFormatException ne) {
-            //     intToHexOutput = textField.getText();
-            //     System.out.println(intToHexOutput + " is not a valid integer"); 
-            // } 
-            // textField.setText("");
-        } else if (s.equals("ASCII Value")) {
-            // asciiInput = textField.getText();
-            // asciiOutput = ac.asciiToValue(asciiInput);
-            // asciiLabel.setText("<html>" + asciiOutput + "</html>");
-            // textField.setText("");
+            // Translate machine code to assembly
+           String asmInstruction = mct.translateMachineCode(dTmpText);
+           disassemblerLabel.setText("<html>" + asmInstruction + "</html>");
+
         } else if (s.equals("Clear Values")) {
             assemblerLabel.setText("0");
             disassemblerLabel.setText("0");
