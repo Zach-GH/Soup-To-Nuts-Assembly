@@ -91,8 +91,7 @@ public class mainFrame extends JFrame implements ActionListener {
         String s = e.getActionCommand();
         /* Objects for input conversion */
 
-        machineCodeTranslator mct = new machineCodeTranslator();
-        assemblyCodeTranslator act = new assemblyCodeTranslator();
+        codeTranslator ct = new codeTranslator();
 
         /* Temporary variables used for buffer input */
         String aTmpText1;
@@ -111,7 +110,7 @@ public class mainFrame extends JFrame implements ActionListener {
             // Translate machine code to assembly
            if ((!(aTextField1.getText().equals(""))) && (!(aTextField2.getText().equals(""))) && (!(aTextField3.getText().equals("")))) {
               // mov r1 r2
-              String machineCode = act.translateASM(aTmpText1, aTmpText2, aTmpText3, aTmpText4);
+              String machineCode = ct.translateAssemblyCode(aTmpText1, aTmpText2, aTmpText3, aTmpText4);
               assemblerLabel.setText("<html>" + machineCode + "</html>");
             } else {
               assemblerLabel.setText("<html>" + "Please enter a valid value" + "</html>");
@@ -123,7 +122,7 @@ public class mainFrame extends JFrame implements ActionListener {
 
             // Translate machine code to assembly
            if (!(dTextField.getText().equals(""))) {
-              String asmInstruction = mct.translateMachineCode(dTmpText);
+              String asmInstruction = ct.translateMachineCode(dTmpText);
               disassemblerLabel.setText("<html>" + asmInstruction + "</html>");
            } else {
               disassemblerLabel.setText("<html>" + "Please enter a valid value" + "</html>");
