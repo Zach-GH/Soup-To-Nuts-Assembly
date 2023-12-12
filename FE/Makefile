@@ -1,8 +1,8 @@
-addAverage: userAddAvg
+addAvg: addAverage
 
 CC = gcc
 
-userAddAvg: addAverageMain.o
+addAverage: addAverageMain.o
 	$(CC) $@Main.o -Wall -g -o $@
 	./$@
 

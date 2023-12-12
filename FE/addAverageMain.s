@@ -51,7 +51,7 @@ main:
 
     # process the average of all the user inputs
     processTotalNumber:
-    MOV r0, r4
+    MOV r1, r4
     LDR r0, =totalNumber
     BL printf
     B processTotalAdded
@@ -61,7 +61,7 @@ main:
         CMP r0, #0
         BLT processTotalNumber
         # if this is a value higher than -1 continue the loop
-        startMainLoop
+        B startMainLoop
 
     EndInitLoop:
 
